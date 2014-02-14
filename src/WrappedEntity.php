@@ -113,6 +113,31 @@ class WrappedEntity extends Object
 
 
 	/**
+	 * @return array|null
+	 */
+	public function getFlattenIdentifier()
+	{
+		$identifier = $this->getIdentifier();
+		if(!is_array($identifier)) {
+			return $identifier;
+		}
+		$flatten = array();
+		foreach($identifier as $name => $singleIdentifier) {
+			if(is_object($singleIdentifier) && ($association = $this->getAssociationMapping($name))) {
+				$joinColumn = reset($association['joinColumns']);
+				$columnName = $joinColumn['referencedColumnName'];
+				$wrapped = $this->entityWrapper->wrap($singleIdentifier);
+				$flatten[$name] = $wrapped->getValue($columnName);
+			} else {
+				$flatten[$name] = $singleIdentifier;
+			}
+		}
+
+		return $flatten;
+	}
+
+
+	/**
 	 * @return mixed|null
 	 */
 	public function getSingleIdentifier()
