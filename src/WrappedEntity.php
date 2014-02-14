@@ -56,6 +56,25 @@ class WrappedEntity extends Object
 
 
 	/**
+	 * @return \Librette\Doctrine\EntityWrapper
+	 */
+	public function getEntityWrapper()
+	{
+		return $this->entityWrapper;
+	}
+
+
+	/**
+	 * @return \Doctrine\ORM\EntityManager
+	 */
+	public function getEntityManager()
+	{
+		return $this->em;
+	}
+
+
+
+	/**
 	 * @return object
 	 */
 	public function getEntity()
