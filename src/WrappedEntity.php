@@ -126,6 +126,15 @@ class WrappedEntity extends Object
 
 	}
 
+	public function hasField($field)
+	{
+		return $this->getMetadata()->hasField($field);
+	}
+
+	public function hasAssociation($association)
+	{
+		return $this->getMetadata()->hasAssociation($association);
+	}
 
 	/**
 	 * @param string $association association name
