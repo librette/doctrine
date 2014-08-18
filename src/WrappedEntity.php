@@ -73,7 +73,6 @@ class WrappedEntity extends Object
 	}
 
 
-
 	/**
 	 * @return object
 	 */
@@ -118,12 +117,12 @@ class WrappedEntity extends Object
 	public function getFlattenIdentifier()
 	{
 		$identifier = $this->getIdentifier();
-		if(!is_array($identifier)) {
+		if (!is_array($identifier)) {
 			return $identifier;
 		}
-		$flatten = array();
-		foreach($identifier as $name => $singleIdentifier) {
-			if(is_object($singleIdentifier) && ($association = $this->getAssociationMapping($name))) {
+		$flatten = [];
+		foreach ($identifier as $name => $singleIdentifier) {
+			if (is_object($singleIdentifier) && ($association = $this->getAssociationMapping($name))) {
 				$joinColumn = reset($association['joinColumns']);
 				$columnName = $joinColumn['referencedColumnName'];
 				$wrapped = $this->entityWrapper->wrap($singleIdentifier);
@@ -151,15 +150,18 @@ class WrappedEntity extends Object
 
 	}
 
+
 	public function hasField($field)
 	{
 		return $this->getMetadata()->hasField($field);
 	}
 
+
 	public function hasAssociation($association)
 	{
 		return $this->getMetadata()->hasAssociation($association);
 	}
+
 
 	/**
 	 * @param string $association association name
@@ -208,12 +210,12 @@ class WrappedEntity extends Object
 		$this->initializeEntity();
 
 		if ($method = $this->getCustomManipulateMethod($property, 'get')) {
-			return call_user_func(array($this->entity, $method));
+			return call_user_func([$this->entity, $method]);
 		}
 
-		$methods = array();
+		$methods = [];
 		$methods[] = 'get' . $property;
-		if ($this->tryCallMethods($methods, array(), $result)) {
+		if ($this->tryCallMethods($methods, [], $result)) {
 			return $result;
 		}
 
@@ -269,14 +271,14 @@ class WrappedEntity extends Object
 			}
 		}
 		if ($method = $this->getCustomManipulateMethod($field, 'set')) {
-			call_user_func_array(array($this->entity, $method), array($value));
+			call_user_func_array([$this->entity, $method], [$value]);
 
 			return;
 		}
 
-		$methods = array();
+		$methods = [];
 		$methods[] = 'set' . $field;
-		if ($this->tryCallMethods($methods, array($value))) {
+		if ($this->tryCallMethods($methods, [$value])) {
 			return;
 		}
 		$this->setRawValue($field, $value);
@@ -326,14 +328,14 @@ class WrappedEntity extends Object
 		$this->verifyAssociatedEntity($association, $associatedEntity);
 
 		if ($method = $this->getCustomManipulateMethod($association, 'add')) {
-			call_user_func_array(array($this->entity, $method), array($associatedEntity));
+			call_user_func_array([$this->entity, $method], [$associatedEntity]);
 
 			return;
 		}
 
-		$methods = array();
+		$methods = [];
 		$methods[] = 'add' . $association;
-		if ($this->tryCallMethods($methods, array($associatedEntity))) {
+		if ($this->tryCallMethods($methods, [$associatedEntity])) {
 			return;
 		}
 
@@ -361,14 +363,14 @@ class WrappedEntity extends Object
 		$this->verifyAssociatedEntity($association, $associatedEntity);
 
 		if ($method = $this->getCustomManipulateMethod($association, 'remove')) {
-			call_user_func_array(array($this->entity, $method), array($associatedEntity));
+			call_user_func_array([$this->entity, $method], [$associatedEntity]);
 
 			return;
 		}
 
-		$methods = array();
+		$methods = [];
 		$methods[] = 'remove' . $association;
-		if ($this->tryCallMethods($methods, array($associatedEntity))) {
+		if ($this->tryCallMethods($methods, [$associatedEntity])) {
 			return;
 		}
 
@@ -417,7 +419,7 @@ class WrappedEntity extends Object
 			return;
 		}
 
-		$this->identifier = array();
+		$this->identifier = [];
 		foreach ($this->metadata->identifier as $name) {
 			$this->identifier[$name] = $id = $this->getRawValue($name);
 			if ($id === NULL) {
@@ -447,11 +449,11 @@ class WrappedEntity extends Object
 	 * @param mixed $result if provided, then it is filled with method return value
 	 * @return bool
 	 */
-	protected function tryCallMethods(array $methods = array(), array $args = array(), &$result = NULL)
+	protected function tryCallMethods(array $methods = [], array $args = [], &$result = NULL)
 	{
 		foreach ($methods as $method) {
 			if (method_exists($this->entity, $method)) {
-				$result = call_user_func_array(array($this->entity, $method), $args);
+				$result = call_user_func_array([$this->entity, $method], $args);
 
 				return TRUE;
 			}

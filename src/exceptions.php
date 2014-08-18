@@ -12,6 +12,7 @@ class RuntimeException extends \RuntimeException implements Exception
 
 }
 
+
 class InvalidFieldException extends RuntimeException
 {
 
@@ -22,6 +23,7 @@ class InvalidFieldException extends RuntimeException
 		return new static("Class $class has no field $field", NULL, $previous);
 	}
 }
+
 
 class InvalidAssociationException extends RuntimeException implements Exception
 {
@@ -41,6 +43,7 @@ class InvalidAssociationException extends RuntimeException implements Exception
 
 		return new static("Invalid class for $class::\$$association. $expected expected, $targetClass given");
 	}
+
 
 	public static function associationNotExist($class, $association, $previous = NULL)
 	{

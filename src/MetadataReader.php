@@ -11,7 +11,7 @@ use Nette\Object;
 class MetadataReader extends Object
 {
 
-	protected $metadata = array();
+	protected $metadata = [];
 
 	/** @var \Doctrine\Common\Annotations\Reader */
 	protected $annotationReader;
@@ -37,13 +37,13 @@ class MetadataReader extends Object
 	protected function doRead($entity, $property)
 	{
 		$reflectionClass = new \ReflectionClass($entity);
-		$config = array(
+		$config = [
 			'add'    => NULL,
 			'remove' => NULL,
 			'set'    => NULL,
 			'get'    => NULL,
-		);
-		if(!$reflectionClass->hasProperty($property)) {
+		];
+		if (!$reflectionClass->hasProperty($property)) {
 			return $config;
 		}
 

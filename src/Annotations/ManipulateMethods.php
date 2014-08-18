@@ -21,4 +21,5 @@ class ManipulateMethods
 
 	/** @var string */
 	public $get;
+
 }

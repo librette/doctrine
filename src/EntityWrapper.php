@@ -17,7 +17,7 @@ class EntityWrapper extends Object
 	protected $metadataReader;
 
 	/** @var array */
-	protected $wrappedEntities = array();
+	protected $wrappedEntities = [];
 
 
 	/**
