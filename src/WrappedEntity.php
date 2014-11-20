@@ -1,6 +1,7 @@
 <?php
 namespace Librette\Doctrine;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -395,7 +396,9 @@ class WrappedEntity extends Object
 	protected function getCollectionFromAssociation($association)
 	{
 		$collection = $this->metadata->getFieldValue($this->entity, $association);
-		if (!$collection instanceof Collection) {
+		if($collection === NULL) {
+			$this->metadata->setFieldValue($this->entity, $association, $collection = new ArrayCollection());
+		} elseif (!$collection instanceof Collection) {
 			throw UnexpectedValueException::notACollection($this->entity, $association);
 		}
 
