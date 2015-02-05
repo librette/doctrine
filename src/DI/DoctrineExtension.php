@@ -17,6 +17,6 @@ class DoctrineExtension extends CompilerExtension
 				->setClass('Librette\Doctrine\EntityWrapper');
 
 		$builder->addDefinition($this->prefix('metadataReader'))
-				->setClass('\Librette\Doctrine\MetadataReader');
+				->setClass('Librette\Doctrine\MetadataReader');
 	}
 }
