@@ -7,13 +7,14 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\ORM\Proxy\Proxy;
-use Nette\Object;
+use Nette\SmartObject;
 
 /**
  * @author David Matejka
  */
-class WrappedEntity extends Object
+class WrappedEntity
 {
+	use SmartObject;
 
 	/** @var array|null */
 	private $identifier;

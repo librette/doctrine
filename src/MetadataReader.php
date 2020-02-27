@@ -3,13 +3,14 @@ namespace Librette\Doctrine;
 
 use Doctrine\Common\Annotations\Reader;
 use Librette\Doctrine\Annotations\ManipulateMethods;
-use Nette\Object;
+use Nette\SmartObject;
 
 /**
  * @author David Matejka
  */
-class MetadataReader extends Object
+class MetadataReader
 {
+	use SmartObject;
 
 	protected $metadata = [];
 

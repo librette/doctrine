@@ -2,13 +2,14 @@
 namespace Librette\Doctrine;
 
 use Doctrine\ORM\EntityManager;
-use Nette\Object;
+use Nette\SmartObject;
 
 /**
  * @author David Matejka
  */
-class EntityWrapper extends Object
+class EntityWrapper
 {
+	use SmartObject;
 
 	/** @var \Doctrine\ORM\EntityManager */
 	protected $em;
